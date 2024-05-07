@@ -6,10 +6,10 @@
 3. [Usage](#usage)
 4. [License](#license)
 
-## Terraform Setup
+# Terraform Setup
 This repository contains the infrastructure setup instructions for the Reddit Clone project, including the creation of the Jenkins and SonarQube EC2 instances using Terraform.
 
-# Setup Instructions
+## Setup Instructions
 
 ## Prerequisites
 Ensure the following are installed:
