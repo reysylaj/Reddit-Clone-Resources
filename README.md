@@ -2,14 +2,14 @@
 
 This repository contains the infrastructure setup instructions for the Reddit Clone project, including the creation of the Jenkins and SonarQube EC2 instances using Terraform.
 
-## Setup Instructions
+# Setup Instructions
 
-### Prerequisites
+## Prerequisites
 Ensure the following are installed:
 - Terraform
 - AWS CLI
 
-### Steps
+## Steps
 1. **Create Reddit Clone Resources Folder**: 
    ```bash
    mkdir Reddit-Clone-Resources
