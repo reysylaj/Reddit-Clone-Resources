@@ -10,7 +10,7 @@
 7. [Setup Monitoring for Kubernetes using Helm, Prometheus, and Grafana Dashboard](#setup-monitoring-for-kubernetes-using-helm-prometheus-and-grafana-dashboard)
 8. [ArgoCD Installation on Kubernetes Cluster and Adding AWS EKS Cluster](#argocd-installation-on-kubernetes-cluster-and-adding-aws-eks-cluster)
 9. [Configure ArgoCD to Deploy Pods on EKS Cluster and Automate ArgoCD Deployment using GitOps GitHub Repository](#configure-argocd-to-deploy-pods-on-eks-cluster-and-automate-argocd-deployment-using-gitOps-gitHub-repository)
-10. [Set the Trigger Using GitHub Webhook and Verify the CI/CD Pipeline](#set-the-trigger-using-gitHub-webhook-and-verify-the-ci-cd-pipeline)
+10. [Set the Trigger Using GitHub Webhook and Verify the CI/CD Pipeline](#set-the-trigger-using-github-webhook-and-verify-the-cicd-pipeline)
 
 
 # Terraform Setup
