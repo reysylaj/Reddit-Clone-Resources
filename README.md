@@ -23,7 +23,7 @@ Ensure the following are installed:
 
 3. **Edit Terraform Files**:
 - Update main.tf with the following configuration:
-# main.tf
+## main.tf
 
 provider "aws" {
   region = "your_aws_region"
@@ -53,7 +53,7 @@ resource "aws_security_group" "jenkins_vm_sg" {
 }
 
 - Update provider.tf with the following configuration:
-# provider.tf
+## provider.tf
 
 provider "aws" {
   region = "your_aws_region"
