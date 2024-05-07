@@ -224,6 +224,74 @@ This README provides step-by-step instructions for creating a Jenkins pipeline s
 1. In your code repository, create a new file named "Jenkinsfile".
 2. Add the following script to the "Jenkinsfile", updating as necessary:
 
+-*-----------------
+
+3. Customize the pipeline script to include stages for cleaning workspace, checking out from Git, SonarQube analysis, quality gate, installing dependencies, Trivy FS scan, Docker build and push, and cleanup artifacts.
+
+Create CI Job on Jenkins
+1. Go to Jenkins dashboard and click "New Item".
+2. Enter a name for the job (e.g., Reddit-Clone-CI) and select "Pipeline".
+3. Configure job settings such as "Discard Old Builds" and "Max of Builds to Keep".
+4. Choose "Pipeline script from SCM" and provide the repository URL.
+5. Select the GitHub credentials and branch to build from.
+6. Set the script path to the "Jenkinsfile" in your repository.
+7. Click "Apply" and "Save" to create the job.
+
+Build and Test
+1. Click "Build Now" on the Jenkins job page to trigger a build.
+2. Monitor the build status on Jenkins.
+3. Check SonarQube for analysis results and issues found.
+4. Ensure Docker image is pushed to DockerHub.
+
+# Email Notification Setup Through Jenkins
+
+This README provides step-by-step instructions for setting up email notification through Jenkins.
+
+## Prerequisites
+
+- Ensure your Google account is enabled with Two-Factor Authentication.
+- Generate an App Password for Jenkins to use for sending emails.
+
+## Configure Gmail Credentials in Jenkins
+
+1. **Generate App Password**:
+   - Go to [Google Account Security Settings](https://myaccount.google.com/security).
+   - Navigate to "App passwords" and generate a new password. Save it securely.
+
+2. **Add Gmail Credentials to Jenkins**:
+   - In Jenkins, go to "Manage Jenkins" > "Manage Credentials".
+   - Click on "Global" > "Add Credentials".
+   - Select "Username with password" as the kind.
+   - Enter your Gmail username and the generated App Password.
+   - Provide an ID (e.g., gmail) and description (e.g., Gmail).
+   - Click "OK" to save the credentials.
+
+## Configure Email Notification in Jenkins
+
+1. **SMTP Server Settings**:
+   - Go to "Manage Jenkins" > "Configure System".
+   - Scroll down to "E-mail Notification".
+   - Set SMTP server to "smtp.gmail.com".
+   - Provide the default user email suffix (e.g., @gmail.com).
+   - Under "Advanced", set:
+     - Username: Your Gmail username.
+     - Password: The generated App Password.
+     - Use SSL.
+     - SMTP Port: 465.
+   - Click "Test Configuration" to ensure it works.
+
+2. **Extended Email Notification**:
+   - Go to "Extended E-mail Notification" section.
+   - Set SMTP server to "smtp.gmail.com" and port to "465".
+   - Under "Advanced", select the Gmail credentials previously configured.
+   - Use SSL and set the default user email.
+   - Set "Default Content Type" to "HTML" and default triggers to "Always" and "Success".
+   - Click "Apply" and "Save" to save the configuration.
+
+## Update Pipeline Script (Jenkinsfile)
+
+1. Open the Jenkinsfile containing your pipeline script for editing.
+2. Add a "post" section after the stages to send email notifications:
 
 ```groovy
 pipeline {
@@ -239,6 +307,7 @@ pipeline {
         // Define stages of your pipeline
     }
 }
+```
 
 3. Customize the pipeline script to include stages for cleaning workspace, checking out from Git, SonarQube analysis, quality gate, installing dependencies, Trivy FS scan, Docker build and push, and cleanup artifacts.
 
@@ -319,6 +388,7 @@ post {
             attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
     }
 }
+```
 
 3. Customize the recipient email address and attachment pattern as needed.
 
@@ -339,20 +409,26 @@ sudo apt install curl
 curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 kubectl version --client
+```
+
 
 2. Install AWS CLI
+```
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 sudo apt install unzip
 unzip awscliv2.zip
 sudo ./aws/install
 aws --version
+```
 
-3. Install eksctl
+4. Install eksctl
+```
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /bin
 eksctl version
+```
 
-4. Create IAM Role for EKS Cluster
+6. Create IAM Role for EKS Cluster
 1. Go to AWS console and navigate to IAM > Roles > Create role.
 2. Choose "AWS service" and select EC2.
 3. Attach the "AdministratorAccess" policy.
@@ -360,13 +436,17 @@ eksctl version
 5. Go to EC2 instance, select the instance, go to Actions > Security > Modify IAM role, and select the created role.
 
 5. Setup Kubernetes Cluster using eksctl
+```
 eksctl create cluster --name virtualtechbox-cluster \
 --region ap-south-1 \
 --node-type t2.small \
 --nodes 3
+```
 
-6. Verify Cluster
+7. Verify Cluster
+```
 kubectl get nodes
+```
 
 
 # Setup Monitoring for Kubernetes using Helm, Prometheus, and Grafana Dashboard
@@ -380,18 +460,24 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scr
 chmod 700 get_helm.sh
 ./get_helm.sh
 helm version
+```
 
 2. Add Helm Repositories
+```
 helm repo add stable https://charts.helm.sh/stable
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+```
 
 3. Install Prometheus
+```
 kubectl create namespace prometheus
 helm install stable prometheus-community/kube-prometheus-stack -n prometheus
 kubectl get pods -n prometheus
 kubectl get svc -n prometheus
+```
 
 4. Expose Prometheus and Grafana to External World
+```
 # Expose Prometheus
 kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
 # Change from Cluster IP to LoadBalancer, set port & targetport to 9090
@@ -402,13 +488,16 @@ kubectl edit svc stable-grafana -n prometheus
 
 kubectl get svc -n prometheus
 # Copy DNS name of LoadBalancer for Prometheus and Grafana
+```
 
 5. Access Grafana Dashboard
+```
 # Get Grafana Admin Password
 kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
 
 # Access Grafana dashboard using the copied DNS name of LoadBalancer
 # Browse to the Grafana dashboard and login with username "admin" and the password obtained above
+```
 
 6. Import Prometheus Dashboards
 Import dashboard - 15760: Load, Select Prometheus, and Click Import.
@@ -423,44 +512,66 @@ This README provides step-by-step instructions for installing ArgoCD on a Kubern
 
 ```bash
 kubectl create namespace argocd
+```
 
 2. Apply ArgoCD Configuration
+```
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
 
 3. View ArgoCD Pods
+```
 kubectl get pods -n argocd
+```
 
 4. Deploy ArgoCD CLI
+```
 sudo curl --silent --location -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v2.4.7/argocd-linux-amd64
 sudo chmod +x /usr/local/bin/argocd
+```
 
 5. Expose argocd-server
+```
 kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+```
 
 6. Wait for LoadBalancer Creation
+```
 kubectl get svc -n argocd
 # Wait about 2 minutes for the LoadBalancer creation
+```
 
 7. Get and Decode Initial Admin Password
+```
 kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
 echo WXVpLUg2LWxoWjRkSHFmSA== | base64 --decode
+```
 
 8. Login to ArgoCD from CLI
+```
 argocd login a2255bb2bb33f438d9addf8840d294c5-785887595.ap-south-1.elb.amazonaws.com --username admin
 # Provide the decoded password obtained above
+```
 
 9. Check Available Clusters in ArgoCD
+```
 argocd cluster list
+```
 
 10. Show EKS Cluster Details
+```
 kubectl config get-contexts
+```
 
 11. Add EKS Cluster to ArgoCD
+```
 argocd cluster add i-08b9d0ff0409f48e7@virtualtechbox-cluster.ap-south-1.eksctl.io --name virtualtechbox-eks-cluster
+```
 
 12. Verify Cluster Addition
+```
 argocd cluster list
-
+```
 
 # Configure ArgoCD to Deploy Pods on EKS Cluster and Automate ArgoCD Deployment using GitOps GitHub Repository
 
@@ -545,6 +656,7 @@ pipeline {
         }
     }
 }
+```
 
 # Set the Trigger Using GitHub Webhook and Verify the CI/CD Pipeline
 
