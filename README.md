@@ -695,6 +695,7 @@ This guide provides instructions for setting up the trigger using GitHub webhook
 nano README.md
 
 Edit the file, save, and exit (Ctrl+O, Enter, Ctrl+X).
+
 4. Stage, commit, and push the changes to the remote repository:
 git add .
 git commit -m "Test change for CI/CD pipeline"
