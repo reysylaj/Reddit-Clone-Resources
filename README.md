@@ -224,7 +224,6 @@ This README provides step-by-step instructions for creating a Jenkins pipeline s
 1. In your code repository, create a new file named "Jenkinsfile".
 2. Add the following script to the "Jenkinsfile", updating as necessary:
 
--*-----------------
 
 3. Customize the pipeline script to include stages for cleaning workspace, checking out from Git, SonarQube analysis, quality gate, installing dependencies, Trivy FS scan, Docker build and push, and cleanup artifacts.
 
