@@ -1,5 +1,12 @@
 # Reddit Clone Resources
 
+## Table of Contents
+1. [Terraform Setup](##Terraform Setup)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [License](#license)
+
+## Terraform Setup
 This repository contains the infrastructure setup instructions for the Reddit Clone project, including the creation of the Jenkins and SonarQube EC2 instances using Terraform.
 
 # Setup Instructions
