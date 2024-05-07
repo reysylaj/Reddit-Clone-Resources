@@ -1,5 +1,11 @@
 # Reddit Clone Resources
 
+My DevOps CI/CD pipeline project orchestrates the deployment of a Reddit Clone app on Kubernetes, leveraging a suite of tools. Using Terraform, I provision EC2 instances for Jenkins and SonarQube. Any changes to our GitHub repository trigger Jenkins CI jobs, initiating SonarQube analysis, dependency installation, Trivy FS scanning, Docker image building, and pushing to Docker Hub. Each build results in a uniquely tagged image. Upon CI job completion, a CD job updates the image tag in the GitOps repository, triggering Argo CD for Kubernetes deployment. I implement Kubernetes monitoring via Prometheus and Grafana dashboards, and receive email alerts upon CI job completion, containing Trivy FS scan results and build logs. Tools utilized include Terraform, Jenkins, SonarQube, Trivy, Docker, Docker Hub, GitOps, Argo CD, Kubernetes, Prometheus, Grafana, and email notification.
+
+For each process please refer to the **Screenshots folder**.
+**CI REPO**: [Reddit-Clone](https://github.com/reysylaj/Reddit-Clone)
+**CD REPO**: [a-reddit-clone-gitops](https://github.com/reysylaj/a-reddit-clone-gitops)
+
 ## Table of Contents
 1. [Terraform Setup](#terraform-setup)
 2. [Jenkins Setup Instructions](#jenkins-setup-instructions)
