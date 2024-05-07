@@ -1,7 +1,7 @@
 # Reddit Clone Resources
 
 ## Table of Contents
-1. [Terraform Setup](#TerraformSetup)
+1. [Terraform Setup](#Terraform_Setup)
 2. [Installation](#installation)
 3. [Usage](#usage)
 4. [License](#license)
