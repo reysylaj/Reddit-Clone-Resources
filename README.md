@@ -2,9 +2,16 @@
 
 ## Table of Contents
 1. [Terraform Setup](#terraform-setup)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [License](#license)
+2. [Jenkins Setup Instructions](#jenkins-setup-instructions)
+3. [SonarQube Configuration and Integration with Jenkins](#sonarqube-configuration-and-integration-with-jenkins)
+4. [Jenkins Pipeline Setup Instructions](#jenkins-pipeline-setup-instructions)
+5. [Email Notification Setup Through Jenkins](#email-notification-setup-through-jenkins)
+6. [AWS EKS Cluster Creation](#aws-eks-cluster-creation)
+7. [Setup Monitoring for Kubernetes using Helm, Prometheus, and Grafana Dashboard](#setup-monitoring-for-kubernetes-using-helm-prometheus-and-grafana-dashboard)
+8. [ArgoCD Installation on Kubernetes Cluster and Adding AWS EKS Cluster](#argocd-installation-on-kubernetes-cluster-and-adding-aws-eks-cluster)
+9. [Configure ArgoCD to Deploy Pods on EKS Cluster and Automate ArgoCD Deployment using GitOps GitHub Repository](#configure-argocd-to-deploy-pods-on-eks-cluster-and-automate-argocd-deployment-using-gitOps-gitHub-repository)
+10. [Set the Trigger Using GitHub Webhook and Verify the CI/CD Pipeline](#set-the-trigger-using-gitHub-webhook-and-verify-the-ci-cd-pipeline)
+
 
 # Terraform Setup
 This repository contains the infrastructure setup instructions for the Reddit Clone project, including the creation of the Jenkins and SonarQube EC2 instances using Terraform.
