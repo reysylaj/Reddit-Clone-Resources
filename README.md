@@ -242,10 +242,6 @@ Build and Test
 3. Check SonarQube for analysis results and issues found.
 4. Ensure Docker image is pushed to DockerHub.
 
-# Email Notification Setup Through Jenkins
-
-This README provides step-by-step instructions for setting up email notification through Jenkins.
-
 ## Prerequisites
 
 - Ensure your Google account is enabled with Two-Factor Authentication.
